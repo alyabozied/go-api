@@ -9,6 +9,9 @@ import (
 	"net/http"
 	"os"
 	"time"
+
+	"github.com/gohugoio/hugo/markup/converter"
+	"github.com/joho/godotenv"
 )
 
 const version = "1.0.0"
@@ -46,10 +49,15 @@ func (app *application) serve() error {
 func main() {
 	var cfg config
 
-	flag.IntVar(&cfg.port, "port", 4000, "Server port to listen on")
-	flag.StringVar(&cfg.env, "env", "development", "Application enviroment {development|production}")
+	err := godotenv.Load()
+	if err != nil {
+		log.Fatalf("Error loading .env file: %v", err)
+	}
 
-	flag.StringVar(&cfg.db.dsn, "dsn", "postgres://koyeb-adm:nWkOPH0S3Xya@ep-yellow-rice-a28h8vx2.eu-central-1.pg.koyeb.app/koyebdb", "DSN")
+	cfg.db.dsn = os.Getenv("database")
+	cfg.port = converter.Atoi(os.Getenv("port"))
+	cfg.env = os.Getenv("enviroment")
+
 	flag.Parse()
 
 	infoLog := log.New(os.Stdout, "INFO\t", log.Ldate|log.Ltime)
