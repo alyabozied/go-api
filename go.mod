@@ -1,6 +1,6 @@
 module api
 
-go 1.23.4
+go 1.17
 
 require github.com/go-chi/chi v1.5.5
 
