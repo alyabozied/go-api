@@ -8,9 +8,9 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"strconv"
 	"time"
 
-	"github.com/gohugoio/hugo/markup/converter"
 	"github.com/joho/godotenv"
 )
 
@@ -55,7 +55,7 @@ func main() {
 	}
 
 	cfg.db.dsn = os.Getenv("database")
-	cfg.port = converter.Atoi(os.Getenv("port"))
+	cfg.port, err = strconv.Atoi(os.Getenv("port"))
 	cfg.env = os.Getenv("enviroment")
 
 	flag.Parse()
