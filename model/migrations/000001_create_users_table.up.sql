@@ -1,9 +1,8 @@
-CREATE TABLE users (
+CREATE TABLE IF not Exists users (
     id SERIAL PRIMARY KEY,                -- Auto-incremental ID
-    username VARCHAR(255) NOT NULL,       -- Username, required field
+    username VARCHAR(255) NOT NULL UNIQUE,       -- Username, required field
     email VARCHAR(255) NOT NULL UNIQUE,   -- Email, must be unique
-    password TEXT NOT NULL,               -- Password, required field
+    password bytea NOT NULL,               -- Password, required field
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP, -- Auto-set to current time on creation
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP  -- Auto-set to current time on creation
 );
-Insert Into users(username,email,password) values("abozied","abozied@gmail.com" , "hello")

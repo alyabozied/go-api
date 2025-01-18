@@ -28,7 +28,7 @@ func (app *application) routes() http.Handler {
 
 	mux.Get("/api/user/{id}", app.GetUserByID)
 
-	mux.Get("/api/createUser", app.CreateUser)
-
+	mux.Post("/api/user", app.CreateUser)
+	mux.Post("/api/login", app.SignIn)
 	return mux
 }
